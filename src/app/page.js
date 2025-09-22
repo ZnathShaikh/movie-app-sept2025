@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import MovieCard from "@/components/MovieCard";
 
 const Home = ()=> {
   const[query, setQuery] = useState("");
