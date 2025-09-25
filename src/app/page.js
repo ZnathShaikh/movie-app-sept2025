@@ -34,7 +34,7 @@ const Home = ()=> {
    try{
     setLoading(true);
     const results= await SearchMovies(query);
-    setQuery(results);
+    setMovies(results);
    }
    catch(err){
     setError("failed to search for requested movie, try a different movie instead.")
@@ -43,12 +43,12 @@ const Home = ()=> {
     setLoading(false)
    }
   }
-
-
+  
+  
 
   return(
-    <main className="p-6">
-      <h1 className="text-4xl caret-blue-700 " >MovieFlix </h1>
+    <main className="p-6 flex-row">
+      <h1 className="text-4xl caret-blue-700" >MovieFlix </h1>
       <form
       onSubmit={handleSearch}>
         <input 
@@ -60,8 +60,16 @@ const Home = ()=> {
         type="submit"
         > Search </button>
       </form>
-      <div>
-        <p> No movies yet. Try searching.</p>
+      {loading && <p>Loading movies...</p> }
+      {error && <p className="text-red-600">{error}</p> }
+      {
+        !loading && !error && movies.length === 0 && (
+        <p> No movies yet, try searching instead.</p>)
+      }
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
+        {movies.map((movie)=>(
+          <MovieCard key={movie.id} movie={movie} ></MovieCard>
+        ))}
       </div>
     </main>
   )
