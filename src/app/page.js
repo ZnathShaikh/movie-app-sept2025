@@ -90,7 +90,12 @@ const Home = ()=> {
       }
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
         {movies.map((movie)=>(
-          <MovieCard key={movie.id} movie={movie} ></MovieCard>
+          <MovieCard
+          key={movie.id}
+          movie={movie}
+          isFavorite={favorites.some((fav) => fav.id === movie.id)}
+          onFavoriteToggle={handleFavorite}
+        />
         ))}
       </div>
     </main>
